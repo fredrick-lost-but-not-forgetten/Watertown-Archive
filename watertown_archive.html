@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Watertown Municipal Archive</title>
+  <meta name="description" content="Watertown Municipal Archive public records terminal." />
+  <style>
+    :root{
+      --bg:#0b0d0c;
+      --panel:#111713;
+      --text:#c8d2c4;
+      --muted:#78837b;
+      --line:#28332b;
+      --accent:#9caf99;
+      --danger:#a66f6f;
+      --paper:#d7cfb4;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      background:
+        linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px),
+        var(--bg);
+      background-size:24px 24px;
+      color:var(--text);
+      font-family:"Courier New", Courier, monospace;
+      min-height:100vh;
+    }
+
+    .wrap{
+      width:min(980px,92vw);
+      margin:48px auto;
+    }
+
+    header{
+      border:1px solid var(--line);
+      background:rgba(17,23,19,.9);
+      padding:28px;
+      box-shadow:0 14px 50px rgba(0,0,0,.28);
+    }
+
+    .eyebrow{
+      color:var(--muted);
+      font-size:.8rem;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      margin-bottom:10px;
+    }
+
+    h1{
+      margin:0 0 8px;
+      font-size:clamp(1.7rem,4vw,2.8rem);
+      letter-spacing:.08em;
+      font-weight:600;
+    }
+
+    .status{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-size:.9rem;
+    }
+
+    .status b{color:var(--accent); font-weight:normal}
+
+    .terminal{
+      margin-top:18px;
+      border:1px solid var(--line);
+      background:rgba(12,16,13,.95);
+      padding:18px 20px;
+      color:var(--muted);
+      font-size:.9rem;
+      line-height:1.65;
+    }
+
+    .terminal .cursor::after{
+      content:"_";
+      animation:blink 1s steps(1) infinite;
+    }
+
+    @keyframes blink{50%{opacity:0}}
+
+    .section{
+      margin-top:28px;
+      border:1px solid var(--line);
+      background:rgba(17,23,19,.87);
+    }
+
+    .section h2{
+      margin:0;
+      padding:14px 18px;
+      border-bottom:1px solid var(--line);
+      font-size:1rem;
+      letter-spacing:.13em;
+      text-transform:uppercase;
+      font-weight:600;
+    }
+
+    .record{
+      display:grid;
+      grid-template-columns: 190px 1fr 120px;
+      gap:16px;
+      padding:15px 18px;
+      border-top:1px solid var(--line);
+      align-items:center;
+    }
+
+    .record:first-of-type{border-top:0}
+
+    .record-id{
+      color:var(--accent);
+      word-break:break-word;
+    }
+
+    .record-title{
+      color:var(--text);
+    }
+
+    .record small{
+      display:block;
+      color:var(--muted);
+      margin-top:4px;
+    }
+
+    .state{
+      text-align:right;
+      font-size:.8rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:var(--accent);
+    }
+
+    .state.locked{color:var(--danger)}
+
+    button{
+      font:inherit;
+      background:transparent;
+      color:var(--text);
+      border:1px solid var(--line);
+      padding:8px 12px;
+      cursor:pointer;
+    }
+
+    button:hover{
+      border-color:var(--accent);
+      color:var(--accent);
+    }
+
+    .survey{
+      display:none;
+      padding:22px 18px 28px;
+      border-top:1px solid var(--line);
+    }
+
+    .survey.open{display:block}
+
+    .survey-card{
+      border:1px solid #635f50;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(255,255,255,.12), transparent 38%),
+        #cfc6aa;
+      color:#2b2b25;
+      padding:24px;
+      line-height:1.6;
+      max-width:760px;
+      margin:0 auto;
+      box-shadow:0 10px 30px rgba(0,0,0,.25);
+    }
+
+    .survey-card h3{
+      text-align:center;
+      margin:0 0 6px;
+      letter-spacing:.08em;
+      font-size:1.4rem;
+    }
+
+    .survey-meta{
+      text-align:center;
+      font-size:.9rem;
+      margin-bottom:20px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:14px;
+      font-size:.95rem;
+    }
+
+    th,td{
+      border:1px solid rgba(30,30,25,.35);
+      padding:10px;
+      text-align:left;
+    }
+
+    .note{
+      margin-top:18px;
+      padding-top:14px;
+      border-top:1px solid rgba(30,30,25,.35);
+      font-style:italic;
+    }
+
+    .access{
+      display:none;
+      padding:22px 18px;
+      border-top:1px solid var(--line);
+    }
+
+    .access.open{display:block}
+
+    .denied{
+      max-width:560px;
+      margin:auto;
+      border:1px solid var(--danger);
+      padding:22px;
+      color:#c99393;
+    }
+
+    .denied strong{
+      display:block;
+      letter-spacing:.14em;
+      margin-bottom:12px;
+    }
+
+    footer{
+      margin:22px 0 60px;
+      color:#5f6962;
+      font-size:.78rem;
+      text-align:center;
+      line-height:1.7;
+    }
+
+    @media (max-width:700px){
+      .record{
+        grid-template-columns:1fr;
+      }
+      .state{text-align:left}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="eyebrow">Public Record Access Terminal</div>
+      <h1>WATERTOWN MUNICIPAL ARCHIVE</h1>
+      <div class="status">
+        <span>Archive status: <b>ONLINE</b></span>
+        <span>Index integrity: <b>97.4%</b></span>
+        <span>Last synchronization: <b>18 Deepwinter</b></span>
+      </div>
+    </header>
+
+    <div class="terminal">
+      &gt; establishing public session... OK<br>
+      &gt; loading municipal records index... OK<br>
+      &gt; incident archive permissions... DENIED<br>
+      &gt; <span class="cursor">awaiting query</span>
+    </div>
+
+    <section class="section">
+      <h2>Available Records</h2>
+
+      <div class="record">
+        <div class="record-id">WT-NTG-D11-W2of2</div>
+        <div class="record-title">
+          Northern Gate Daily Record
+          <small>11th of Deepwinter · Town Watch</small>
+        </div>
+        <div class="state">PUBLIC</div>
+      </div>
+
+      <div class="record">
+        <div class="record-id">WT-BND-SURVEY-1487</div>
+        <div class="record-title">
+          Northern Boundary Survey
+          <small>Markers I–XII · Survey Office</small>
+          <div style="margin-top:9px">
+            <button onclick="toggleSurvey()">VIEW SURVEY</button>
+          </div>
+        </div>
+        <div class="state">PUBLIC</div>
+      </div>
+
+      <div id="survey" class="survey">
+        <div class="survey-card">
+          <h3>NORTHERN BOUNDARY SURVEY</h3>
+          <div class="survey-meta">
+            Survey Date: 3 Harvestfall, 1487 DR<br>
+            Surveyor: Oren Vale
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Marker</th>
+                <th>Distance from North Gate</th>
+                <th>Condition</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>VII</td>
+                <td>4.8 miles</td>
+                <td>Serviceable</td>
+              </tr>
+              <tr>
+                <td>VIII</td>
+                <td>11.2 miles</td>
+                <td>Serviceable</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="note">
+            Recorded distance between Marker VII and Marker VIII: <b>6.4 miles</b>.<br><br>
+            No authorized relocation of either marker is recorded.
+          </div>
+        </div>
+      </div>
+
+      <div class="record">
+        <div class="record-id">WT-NTG-D10-W1of2</div>
+        <div class="record-title">
+          Northern Gate Daily Record
+          <small>10th of Deepwinter · Town Watch</small>
+          <div style="margin-top:9px">
+            <button onclick="toggleDenied()">REQUEST ACCESS</button>
+          </div>
+        </div>
+        <div class="state locked">RESTRICTED</div>
+      </div>
+
+      <div class="record">
+        <div class="record-id">WT-INC-11D</div>
+        <div class="record-title">
+          Incident Report
+          <small>Classification: Northern Perimeter</small>
+        </div>
+        <div class="state locked">RESTRICTED</div>
+      </div>
+
+      <div class="record">
+        <div class="record-id">WT-THORN-E</div>
+        <div class="record-title">
+          Thorn Residence Correspondence
+          <small>Private municipal holding</small>
+        </div>
+        <div class="state locked">RESTRICTED</div>
+      </div>
+
+      <div id="denied" class="access">
+        <div class="denied">
+          <strong>ACCESS DENIED</strong>
+          Incident Archive authorization is required.<br><br>
+          Reference code: __________________
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      WATERTOWN MUNICIPAL ARCHIVE · PUBLIC ACCESS NODE 03<br>
+      Records are preserved as submitted. Records are not altered after archival.
+    </footer>
+  </div>
+
+  <!-- incident record moved: /archive/incident/11D -->
+  <!-- sheet 1 transferred to incident records -->
+  <!-- if the index changes, compare local copies -->
+
+  <script>
+    function toggleSurvey(){
+      document.getElementById("survey").classList.toggle("open");
+    }
+    function toggleDenied(){
+      document.getElementById("denied").classList.toggle("open");
+    }
+  </script>
+</body>
+</html>
