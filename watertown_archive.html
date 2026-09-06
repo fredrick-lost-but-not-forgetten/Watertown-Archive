@@ -241,6 +241,50 @@
       }
       .state{text-align:left}
     }
+  
+    .record-actions{
+      margin-top:9px;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .detail{
+      display:none;
+      padding:20px 18px 24px;
+      border-top:1px solid var(--line);
+      background:rgba(8,12,9,.72);
+    }
+
+    .detail.open{display:block}
+
+    .detail-card{
+      max-width:760px;
+      margin:0 auto;
+      border:1px solid var(--line);
+      padding:18px 20px;
+      line-height:1.65;
+      color:var(--text);
+      background:rgba(14,20,16,.9);
+    }
+
+    .detail-card h3{
+      margin:0 0 12px;
+      font-size:1rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:var(--accent);
+    }
+
+    .detail-card .muted{
+      color:var(--muted);
+    }
+
+    .detail-card ul{
+      margin:10px 0 0 20px;
+      padding:0;
+    }
+
   </style>
 </head>
 <body>
@@ -323,6 +367,164 @@
         </div>
       </div>
 
+
+      <div class="record">
+        <div class="record-id">WT-CIV-WTR-12D</div>
+        <div class="record-title">
+          Public Well Inspection
+          <small>12th of Deepwinter · Civic Works Office</small>
+          <div class="record-actions">
+            <button onclick="toggleDetail('well-record')">VIEW RECORD</button>
+          </div>
+        </div>
+        <div class="state">PUBLIC</div>
+      </div>
+
+      <div id="well-record" class="detail">
+        <div class="detail-card">
+          <h3>Public Well Inspection</h3>
+          <div class="muted">Inspector: Jorin Pell · Central Square Well</div>
+          <ul>
+            <li>Bucket chain replaced; lower links showed excessive rust.</li>
+            <li>Water level normal for season.</li>
+            <li>Stone lip repaired on east side.</li>
+            <li>No contamination observed.</li>
+          </ul>
+          <p>Next inspection due after spring thaw.</p>
+        </div>
+      </div>
+
+      <div class="record">
+        <div class="record-id">WT-MKT-PER-44</div>
+        <div class="record-title">
+          Winter Market Permit Register
+          <small>Deepwinter · Clerk of Trade</small>
+          <div class="record-actions">
+            <button onclick="toggleDetail('market-record')">VIEW REGISTER</button>
+          </div>
+        </div>
+        <div class="state">PUBLIC</div>
+      </div>
+
+      <div id="market-record" class="detail">
+        <div class="detail-card">
+          <h3>Winter Market Permit Register</h3>
+          <table>
+            <thead>
+              <tr><th>Permit</th><th>Holder</th><th>Trade</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>44-01</td><td>Mara Venn</td><td>Preserves &amp; root vegetables</td><td>ACTIVE</td></tr>
+              <tr><td>44-02</td><td>H. Carrow</td><td>Dry goods &amp; lamp oil</td><td>ACTIVE</td></tr>
+              <tr><td>44-03</td><td>Brenner Holt</td><td>Lumber &amp; trapping supplies</td><td>ACTIVE</td></tr>
+              <tr><td>44-04</td><td>Selma Reed</td><td>Bread &amp; winter cakes</td><td>ACTIVE</td></tr>
+            </tbody>
+          </table>
+          <p class="muted">Market hours shortened during heavy snow by order of the Town Steward.</p>
+        </div>
+      </div>
+
+      <div class="record">
+        <div class="record-id">WT-CIV-BELL-07</div>
+        <div class="record-title">
+          Chapel Bell Maintenance Order
+          <small>7th of Deepwinter · Civic Works Office</small>
+          <div class="record-actions">
+            <button onclick="toggleDetail('bell-record')">VIEW ORDER</button>
+          </div>
+        </div>
+        <div class="state">PUBLIC</div>
+      </div>
+
+      <div id="bell-record" class="detail">
+        <div class="detail-card">
+          <h3>Chapel Bell Maintenance Order</h3>
+          <p>The western bell rope is to be replaced before the next storm cycle. The bell itself is serviceable, though the mounting bracket has shifted approximately half an inch.</p>
+          <p>Until repairs are complete, the evening bell is to be rung manually from the upper platform.</p>
+          <p class="muted">Work assigned to D. Marris and apprentice. Estimated labor: 3 hours.</p>
+        </div>
+      </div>
+
+      <div class="record">
+        <div class="record-id">WT-RD-NORTH-03</div>
+        <div class="record-title">
+          Northern Road Maintenance Notice
+          <small>9th of Deepwinter · Roads &amp; Boundary Office</small>
+          <div class="record-actions">
+            <button onclick="toggleDetail('road-record')">VIEW NOTICE</button>
+          </div>
+        </div>
+        <div class="state">PUBLIC</div>
+      </div>
+
+      <div id="road-record" class="detail">
+        <div class="detail-card">
+          <h3>Northern Road Maintenance Notice</h3>
+          <p>Fallen pine and washout damage reported between the third and fifth mile markers. Wagon passage remains possible with reduced speed.</p>
+          <p>Boundary stones <b>VII</b> and <b>VIII</b> were visually confirmed during the last completed survey. No relocation order has been issued for either marker.</p>
+          <p class="muted">Crews postponed until weather permits safe travel beyond the outer lantern posts.</p>
+        </div>
+      </div>
+
+      <div class="record">
+        <div class="record-id">WT-GRN-ALLOT-18D</div>
+        <div class="record-title">
+          Winter Grain Allotment
+          <small>18th of Deepwinter · Storehouse Office</small>
+          <div class="record-actions">
+            <button onclick="toggleDetail('grain-record')">VIEW LEDGER</button>
+          </div>
+        </div>
+        <div class="state">PUBLIC</div>
+      </div>
+
+      <div id="grain-record" class="detail">
+        <div class="detail-card">
+          <h3>Winter Grain Allotment</h3>
+          <table>
+            <thead>
+              <tr><th>Recipient</th><th>Household</th><th>Flour</th><th>Oats</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Thorn Residence</td><td>2</td><td>14 lb.</td><td>8 lb.</td></tr>
+              <tr><td>Venn Household</td><td>4</td><td>24 lb.</td><td>16 lb.</td></tr>
+              <tr><td>Holt Household</td><td>3</td><td>19 lb.</td><td>12 lb.</td></tr>
+              <tr><td>Town Watch Barracks</td><td>8</td><td>52 lb.</td><td>30 lb.</td></tr>
+            </tbody>
+          </table>
+          <p class="muted">Clerk's note: Thorn Residence allotment unchanged from previous month.</p>
+        </div>
+      </div>
+
+      <div class="record">
+        <div class="record-id">WT-CEM-INDEX-23</div>
+        <div class="record-title">
+          Cemetery Plot Index
+          <small>Municipal Grounds Office · Public extract</small>
+          <div class="record-actions">
+            <button onclick="toggleDetail('cemetery-record')">VIEW INDEX</button>
+          </div>
+        </div>
+        <div class="state">PUBLIC</div>
+      </div>
+
+      <div id="cemetery-record" class="detail">
+        <div class="detail-card">
+          <h3>Cemetery Plot Index — Winter Additions</h3>
+          <table>
+            <thead>
+              <tr><th>Plot</th><th>Name</th><th>Date Entered</th><th>Notes</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>C-17</td><td>Orrin Bale</td><td>2 Deepwinter</td><td>Family plot</td></tr>
+              <tr><td>C-18</td><td>Maela Sorn</td><td>5 Deepwinter</td><td>Family plot</td></tr>
+              <tr><td>C-19</td><td>Reserved</td><td>—</td><td>Municipal hold</td></tr>
+            </tbody>
+          </table>
+          <p class="muted">Older burial records are stored separately and may not be available through the public terminal.</p>
+        </div>
+      </div>
+
       <div class="record">
         <div class="record-id">WT-NTG-D10-W1of2</div>
         <div class="record-title">
@@ -355,9 +557,69 @@
 
       <div id="denied" class="access">
         <div class="denied">
-          <strong>ACCESS DENIED</strong>
-          Incident Archive authorization is required.<br><br>
-          Reference code: UNKNOWN
+          <strong>INCIDENT ARCHIVE AUTHORIZATION</strong>
+          Record requested: WT-NTG-D10-W1of2<br><br>
+
+          <label for="archivePassword">REFERENCE CODE:</label><br>
+          <input
+            id="archivePassword"
+            type="password"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="ENTER CODE"
+            onkeydown="if(event.key === 'Enter') checkArchivePassword();"
+            style="margin-top:8px;background:#090c0a;color:#c8d2c4;border:1px solid #48534b;padding:10px;width:min(320px,100%);font-family:inherit;"
+          >
+          <button onclick="checkArchivePassword()" style="margin-top:10px;">SUBMIT</button>
+
+          <div id="accessMessage" style="margin-top:16px;"></div>
+        </div>
+      </div>
+
+      <div id="secretRecord" class="detail">
+        <div class="detail-card">
+          <h3>WT-NTG-D10-W1of2 — Northern Gate Daily Record</h3>
+          <div class="muted">10th of Deepwinter · Evening Watch · Incident Archive Copy</div>
+
+          <table>
+            <thead>
+              <tr><th>Time</th><th>Entry</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>18:00</td>
+                <td>North Gate closed. Weather poor; outer lanterns lit.</td>
+              </tr>
+              <tr>
+                <td>20:16</td>
+                <td>Routine wall inspection completed. No damage reported.</td>
+              </tr>
+              <tr>
+                <td>22:41</td>
+                <td>Movement observed beyond northern lantern posts. Visibility insufficient for identification.</td>
+              </tr>
+              <tr>
+                <td>23:47</td>
+                <td>Individual observed standing beyond outer lantern. Watchman E. Harrow initially identified individual as Fredrick.</td>
+              </tr>
+              <tr>
+                <td>23:53</td>
+                <td>Second watchman summoned. Individual no longer visible.</td>
+              </tr>
+              <tr>
+                <td>00:11</td>
+                <td>Messenger sent to Thorn residence. Fredrick confirmed present at residence and reportedly asleep.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="note">
+            Incident forwarded for morning review. No gate opening was authorized during the sighting.
+          </p>
+
+          <p class="muted">
+            Archive notation: original sheet transferred to Incident Records after review.
+          </p>
         </div>
       </div>
     </section>
@@ -371,14 +633,46 @@
   <!-- incident record moved: /archive/incident/11D -->
   <!-- sheet 1 transferred to incident records -->
   <!-- if the index changes, compare local copies -->
-  <!-- maintenance: orphaned record WT-PER-FR-01 pending reconciliation -->
+  <!-- civic note: boundary relocation requests require two surveyor signatures -->
+  <!-- archive discrepancy flag: household counts are not considered identity records -->
+  <!-- legacy authorization strings are retained for records migrated from the old incident index -->
 
   <script>
     function toggleSurvey(){
       document.getElementById("survey").classList.toggle("open");
     }
     function toggleDenied(){
-      document.getElementById("denied").classList.toggle("open");
+      const panel = document.getElementById("denied");
+      panel.classList.toggle("open");
+      if(panel.classList.contains("open")){
+        setTimeout(() => document.getElementById("archivePassword").focus(), 50);
+      }
+    }
+
+    function toggleDetail(id){
+      document.getElementById(id).classList.toggle("open");
+    }
+
+    function checkArchivePassword(){
+      const entered = document.getElementById("archivePassword").value
+        .trim()
+        .toUpperCase();
+
+      // Archive authorization keys are stored as legacy numeric character values.
+      const key = [72,79,76,76,79,87,83,84,79,78,69];
+      const expected = key.map(n => String.fromCharCode(n)).join("");
+
+      const message = document.getElementById("accessMessage");
+      const record = document.getElementById("secretRecord");
+
+      if(entered === expected){
+        message.innerHTML = "AUTHORIZATION ACCEPTED<br>Retrieving WT-NTG-D10-W1of2...<br><br><span style='color:#a66f6f'>WARNING: Record integrity could not be verified.</span>";
+        record.classList.add("open");
+        setTimeout(() => record.scrollIntoView({behavior:"smooth", block:"start"}), 250);
+      } else {
+        message.textContent = "ACCESS DENIED — INVALID REFERENCE CODE";
+        record.classList.remove("open");
+      }
     }
   </script>
 </body>
